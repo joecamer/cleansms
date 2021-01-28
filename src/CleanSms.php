@@ -213,7 +213,7 @@ class CleanSms
     private function sendTransactional($message, $to)
     {
         if (!is_string($to))
-            throw new Exception('The given phone number have a wrong type or format.');
+            throw new Exception('The given phone number have a wrong type or format. Please make sure you provided a valid string.');
 
         $data = [
             'msisdn' => trim($to),
@@ -239,6 +239,9 @@ class CleanSms
     {
         if (!is_array($to))
             throw new Exception('The given phone numbers have a wrong type or format.');
+        
+        if (!Helpers::containsString($to))
+            throw new Exception('One or more of numbers have a wrong type or format. Please make sure that all numbers are strings.');
 
         $to = implode(', ', $to);
 
